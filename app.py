@@ -6,42 +6,43 @@ from datetime import datetime, timedelta, date
 app = Flask(__name__)
 app.secret_key = "vedic_human_secret"
 
-DB_PATH = "database/users.db"
+# Use /tmp for Railway (writable directory)
+DB_PATH = "/tmp/users.db"
 
-# DB CONNECTION
+# ---------------- DB CONNECTION ----------------
 def get_connection():
     return sqlite3.connect(DB_PATH, timeout=10, check_same_thread=False)
 
-#CREATE Db
-if not os.path.exists("database"):
-    os.makedirs("database")
+# ---------------- CREATE DB ----------------
+def init_db():
+    conn = get_connection()
+    cursor = conn.cursor()
 
-conn = get_connection()
-cursor = conn.cursor()
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        email TEXT,
+        password TEXT
+    )
+    """)
 
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT,
-    email TEXT,
-    password TEXT
-)
-""")
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS progress (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER,
+        date TEXT,
+        total_time INTEGER DEFAULT 0,
+        best_time INTEGER DEFAULT 0
+    )
+    """)
 
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS progress (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER,
-    date TEXT,
-    total_time INTEGER DEFAULT 0,
-    best_time INTEGER DEFAULT 0
-)
-""")
+    conn.commit()
+    conn.close()
 
-conn.commit()
-conn.close()
+init_db()
 
-#  STREAK FUNCTION 
+# ---------------- STREAK FUNCTION ----------------
 def get_streak(user_id):
     conn = get_connection()
     cursor = conn.cursor()
@@ -79,6 +80,37 @@ def get_streak(user_id):
 
     return streak
 
+# ---------------- BEST STREAK ----------------
+def get_best_streak(user_id):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT date FROM progress 
+        WHERE user_id = ? 
+        ORDER BY date
+    """, (user_id,))
+
+    rows = cursor.fetchall()
+    conn.close()
+
+    dates = [datetime.strptime(row[0], "%Y-%m-%d").date() for row in rows]
+
+    best = 0
+    current = 0
+
+    for i in range(len(dates)):
+        if i == 0:
+            current = 1
+        else:
+            if dates[i] == dates[i-1] + timedelta(days=1):
+                current += 1
+            else:
+                current = 1
+        best = max(best, current)
+
+    return best
+
 # ---------------- ROUTES ----------------
 
 @app.route("/")
@@ -97,7 +129,7 @@ def signup():
     cursor = conn.cursor()
 
     cursor.execute(
-        "INSERT INTO users (name,email,password) VALUES (?,?,?)",
+        "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
         (data["name"], data["email"], data["password"])
     )
 
@@ -139,17 +171,24 @@ def dashboard():
     best_streak = get_best_streak(user_id)
 
     return render_template(
-    "dashboard.html",
-    name=session["user_name"],
-    streak=streak,
-    best_streak=best_streak
-)
+        "dashboard.html",
+        name=session["user_name"],
+        streak=streak,
+        best_streak=best_streak
+    )
+
 # ---------------- SESSION PAGE ----------------
 @app.route("/session")
 def session_page():
     if "user_id" not in session:
         return redirect("/")
     return render_template("session.html")
+
+@app.route("/session/<yoga_name>")
+def yoga_session(yoga_name):
+    if "user_id" not in session:
+        return redirect("/")
+    return render_template("session.html", yoga=yoga_name)
 
 # ---------------- COMPLETE SESSION ----------------
 @app.route("/complete_session", methods=["POST"])
@@ -167,7 +206,6 @@ def complete_session():
     conn = get_connection()
     cursor = conn.cursor()
 
-    # Check if already exists
     cursor.execute(
         "SELECT * FROM progress WHERE user_id=? AND date=?",
         (user_id, today)
@@ -175,7 +213,6 @@ def complete_session():
     row = cursor.fetchone()
 
     if row:
-        # UPDATE
         cursor.execute("""
             UPDATE progress 
             SET total_time = total_time + ?, 
@@ -186,7 +223,6 @@ def complete_session():
             WHERE user_id=? AND date=?
         """, (total_time, best_time, best_time, user_id, today))
     else:
-        # INSERT
         cursor.execute("""
             INSERT INTO progress (user_id, date, total_time, best_time)
             VALUES (?, ?, ?, ?)
@@ -213,7 +249,6 @@ def get_dashboard_data():
     conn.close()
 
     dates = [r[0] for r in rows]
-
     return jsonify({"dates": dates})
 
 # ---------------- STREAK API ----------------
@@ -224,39 +259,9 @@ def get_streak_api():
 
     user_id = session["user_id"]
     streak = get_streak(user_id)
-
     return jsonify({"streak": streak})
-def get_best_streak(user_id):
-    conn = get_connection()
-    cursor = conn.cursor()
 
-    cursor.execute("""
-        SELECT date FROM progress 
-        WHERE user_id = ? 
-        ORDER BY date
-    """, (user_id,))
-
-    rows = cursor.fetchall()
-    conn.close()
-
-    dates = [datetime.strptime(row[0], "%Y-%m-%d").date() for row in rows]
-
-    best = 0
-    current = 0
-
-    for i in range(len(dates)):
-        if i == 0:
-            current = 1
-        else:
-            if dates[i] == dates[i-1] + timedelta(days=1):
-                current += 1
-            else:
-                current = 1
-
-        best = max(best, current)
-
-    return best
-# ---OTHER PAGES -----
+# ---------------- OTHER PAGES ----------------
 @app.route("/library")
 def library():
     if "user_id" not in session:
@@ -311,23 +316,18 @@ def get_progress_data():
             "best_streak": 0
         })
 
-@app.route("/logout")
-def logout():
-    session.clear()
-    return redirect("/")
-
-@app.route("/session/<yoga_name>")
-def yoga_session(yoga_name):
-    if "user_id" not in session:
-        return redirect("/")
-    return render_template("session.html", yoga=yoga_name)
-
 @app.route("/start-session", methods=["POST"])
 def start_session():
     if "user_id" not in session:
         return jsonify({"success": False})
     return jsonify({"success": True})
 
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect("/")
+
 # ---------------- RUN ----------------
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
