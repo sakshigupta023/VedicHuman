@@ -1,7 +1,9 @@
 VEDICHUman : Yog At Ease
 
-VedicHuman is an AI-powered yoga training platform that helps users perform yoga poses correctly through real-time pose detection and feedback. The system uses computer vision and machine learning techniques to analyze body posture through a webcam and provide guidance for improving yoga practice.
+Live Demo:  vedic-human.vercel.app
 
+
+VedicHuman is an AI-powered yoga training platform that helps users perform yoga poses correctly through real-time pose detection and feedback. The system uses computer vision and machine learning techniques to analyze body posture through a webcam and provide guidance for improving yoga practice.
 The project aims to make yoga training accessible, interactive, and personalized by combining traditional wellness practices with modern AI technology.
 
 
