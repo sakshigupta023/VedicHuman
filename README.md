@@ -87,7 +87,7 @@ VedicHuman/
 
 ⚙️ Installation
 1. Clone Repository
-git clone https://github.com/your-username/VedicHuman.git
+git clone https://github.com/sakshigupta023/VedicHuman
 cd VedicHuman
 2. Create Virtual Environment
 python -m venv venv
