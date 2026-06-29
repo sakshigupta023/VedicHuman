@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vedic Human – Yoga At Ease</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --green:    #22c55e;
+      --green-lt: #4ade80;
+      --green-dk: #16a34a;
+      --glass:    rgba(18, 46, 20, 0.55);
+      --glass-lt: rgba(28, 60, 28, 0.40);
+      --border:   rgba(255,255,255,0.11);
+      --white:    #ffffff;
+      --muted:    rgba(255,255,255,0.55);
+      --faint:    rgba(255,255,255,0.08);
+      --radius:   14px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0b1a0d;
+      color: var(--white);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── BACKGROUND ── */
+    .bg-wrap {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 10% 50%,  rgba(30,90,30,0.50) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 85% 15%,  rgba(20,65,22,0.38) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 55% at 55% 88%,  rgba(10,45,14,0.55) 0%, transparent 65%),
+        linear-gradient(145deg, #0b1a0d 0%, #152b16 45%, #091809 100%);
+    }
+
+    /* subtle leaf-vein overlay */
+    .bg-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(1px 90px at 5%  100%, rgba(40,120,40,0.18) 0%, transparent 100%),
+        radial-gradient(2px 110px at 12% 100%, rgba(30,100,30,0.14) 0%, transparent 100%),
+        radial-gradient(1px 80px at 88% 100%, rgba(40,120,40,0.18) 0%, transparent 100%),
+        radial-gradient(2px 100px at 95% 100%, rgba(30,100,30,0.14) 0%, transparent 100%);
+    }
+
+    .content { position: relative; z-index: 1; }
+
+    /* ── NAV ── */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 4rem;
+      background: rgba(8,20,9,0.72);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 0.5px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+
+    .logo-pip {
+      width: 8px; height: 8px;
+      background: var(--green-lt);
+      border-radius: 50%;
+      box-shadow: 0 0 7px var(--green-lt);
+      animation: breathe 2.8s ease-in-out infinite;
+    }
+
+    @keyframes breathe {
+      0%,100% { opacity:1; transform:scale(1); }
+      50%      { opacity:.5; transform:scale(1.45); }
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--green-lt); }
+
+    .nav-actions { display: flex; gap: .7rem; align-items: center; }
+
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      font-family: 'Inter', sans-serif;
+      font-size: .875rem;
+      font-weight: 500;
+      cursor: pointer;
+      border-radius: 9px;
+      padding: .52rem 1.3rem;
+      transition: all .2s;
+      line-height: 1;
+    }
+
+    .btn-outline {
+      border: 0.5px solid rgba(255,255,255,0.22);
+      background: transparent;
+      color: rgba(255,255,255,0.82);
+    }
+    .btn-outline:hover { border-color: var(--green-lt); color: var(--green-lt); }
+
+    .btn-solid {
+      border: none;
+      background: var(--green);
+      color: #fff;
+      font-weight: 600;
+    }
+    .btn-solid:hover { background: var(--green-dk); transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: calc(100vh - 62px);
+      align-items: center;
+    }
+
+    .hero-left {
+      padding: 4.5rem 3rem 4.5rem 4.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(74,222,128,0.10);
+      border: 0.5px solid rgba(74,222,128,0.32);
+      border-radius: 999px;
+      padding: .38rem 1rem;
+      width: fit-content;
+    }
+
+    .pill-dot {
+      width: 6px; height: 6px;
+      background: var(--green-lt);
+      border-radius: 50%;
+      animation: breathe 2.8s ease-in-out infinite;
+    }
+
+    .pill span {
+      font-size: .75rem;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: #86efac;
+      font-weight: 500;
+    }
+
+    .hero-h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 3.8vw, 3.3rem);
+      font-weight: 600;
+      line-height: 1.18;
+      color: #fff;
+    }
+    .hero-h1 .green { color: var(--green-lt); }
+
+    .hero-body {
+      font-size: .98rem;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 430px;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn-lg {
+      font-size: 1rem;
+      padding: .82rem 2rem;
+      border-radius: 11px;
+    }
+
+    .btn-ghost-lg {
+      font-size: .95rem;
+      padding: .82rem 1.6rem;
+      border-radius: 11px;
+      background: rgba(255,255,255,0.07);
+      border: 0.5px solid rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.82);
+    }
+    .btn-ghost-lg:hover { background: rgba(255,255,255,0.12); }
+
+    .hero-stats {
+      display: flex;
+      gap: 2.8rem;
+      padding-top: .4rem;
+    }
+
+    .stat { display: flex; flex-direction: column; gap: 3px; }
+    .stat-n { font-size: 1.45rem; font-weight: 700; color: #fff; }
+    .stat-l { font-size: .73rem; color: rgba(255,255,255,0.42); letter-spacing: .05em; text-transform: uppercase; }
+
+    /* hero right – preview card */
+    .hero-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3.5rem 4rem 3.5rem 1.5rem;
+    }
+
+    .preview-card {
+      width: 100%;
+      max-width: 400px;
+      background: var(--glass);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border: 0.5px solid var(--border);
+      border-radius: 22px;
+      overflow: hidden;
+    }
+
+    .card-visual {
+      position: relative;
+      height: 230px;
+      background:
+        radial-gradient(ellipse 60% 55% at 65% 28%, rgba(140,220,110,0.28) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 45% at 20% 75%, rgba(50,130,55,0.38) 0%, transparent 60%),
+        linear-gradient(152deg, #1d4420 0%, #2e6030 55%, #0f2a11 100%);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .sun-halo {
+      position: absolute;
+      top: 18px; right: 38px;
+      width: 58px; height: 58px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,235,100,.75) 0%, rgba(255,200,40,.3) 42%, transparent 72%);
+    }
+
+    .card-visual-label {
+      position: absolute;
+      top: 1rem; left: 1.1rem;
+      font-size: .82rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: .04em;
+    }
+
+    .card-visual-tagline {
+      position: absolute;
+      bottom: 1rem; left: 1.1rem;
+      font-size: .98rem;
+      font-weight: 500;
+      color: #fff;
+      line-height: 1.45;
+    }
+    .card-visual-tagline .green { color: var(--green-lt); }
+
+    /* yoga SVG figure */
+    .yoga-svg { margin-bottom: -2px; }
+
+    .card-feats {
+      padding: 1.35rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+    }
+
+    .card-feat {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      background: var(--faint);
+      border: 0.5px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      padding: .62rem .9rem;
+    }
+
+    .feat-ic {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: rgba(74,222,128,0.14);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    .feat-info { display: flex; flex-direction: column; gap: 1px; }
+    .feat-name { font-size: .83rem; font-weight: 500; color: #fff; }
+    .feat-sub  { font-size: .73rem; color: var(--muted); }
+
+    /* ── FEATURES GRID ── */
+    .section {
+      padding: 5.5rem 4.5rem;
+    }
+
+    .sec-hd {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .eyebrow {
+      font-size: .72rem;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      color: var(--green-lt);
+      margin-bottom: .7rem;
+    }
+
+    .sec-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 2.8vw, 2.25rem);
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.28;
+    }
+
+    .sec-sub {
+      margin-top: .7rem;
+      font-size: .92rem;
+      color: var(--muted);
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.15rem;
+    }
+
+    .fcard {
+      background: var(--glass-lt);
+      backdrop-filter: blur(14px);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.7rem 1.5rem;
+      transition: border-color .2s, transform .2s;
+    }
+    .fcard:hover { border-color: rgba(74,222,128,0.32); transform: translateY(-3px); }
+
+    .fcard-ic {
+      width: 42px; height: 42px;
+      border-radius: 11px;
+      background: rgba(74,222,128,0.13);
+      border: 0.5px solid rgba(74,222,128,0.22);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 19px;
+      margin-bottom: 1rem;
+    }
+
+    .fcard-title { font-size: .95rem; font-weight: 600; color: #fff; margin-bottom: .45rem; }
+    .fcard-desc  { font-size: .83rem; color: var(--muted); line-height: 1.62; }
+
+    /* ── HOW IT WORKS ── */
+    .how-section {
+      padding: 5.5rem 4.5rem;
+      background: rgba(8,22,10,0.58);
+      border-top: 0.5px solid rgba(255,255,255,0.06);
+      border-bottom: 0.5px solid rgba(255,255,255,0.06);
+    }
+
+    .how-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .steps { display: flex; flex-direction: column; gap: 1.6rem; }
+
+    .step {
+      display: flex;
+      gap: 1.1rem;
+      align-items: flex-start;
+    }
+
+    .step-n {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: rgba(74,222,128,0.13);
+      border: 0.5px solid rgba(74,222,128,0.32);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .78rem;
+      font-weight: 700;
+      color: var(--green-lt);
+      flex-shrink: 0;
+    }
+
+    .step-body { display: flex; flex-direction: column; gap: 4px; }
+    .step-title { font-size: .94rem; font-weight: 600; color: #fff; }
+    .step-desc  { font-size: .82rem; color: var(--muted); line-height: 1.58; }
+
+    /* streak card mockup */
+    .streak-card {
+      background: var(--glass);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .sc-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .sc-title { font-size: .88rem; font-weight: 600; color: #fff; }
+
+    .sc-badge {
+      font-size: .73rem;
+      font-weight: 600;
+      color: var(--green-lt);
+      background: rgba(74,222,128,0.13);
+      border: 0.5px solid rgba(74,222,128,0.28);
+      border-radius: 999px;
+      padding: 3px 11px;
+    }
+
+    .cal {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+    }
+
+    .cd {
+      aspect-ratio: 1;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.06);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .68rem;
+      color: rgba(255,255,255,0.28);
+    }
+
+    .cd.hdr { font-size: .65rem; color: rgba(255,255,255,0.35); background: transparent; }
+    .cd.done { background: rgba(74,222,128,0.22); color: var(--green-lt); font-weight: 600; }
+    .cd.today { background: var(--green); color: #fff; font-weight: 700; }
+
+    .sc-stats {
+      display: flex;
+      gap: .9rem;
+    }
+
+    .sc-stat {
+      flex: 1;
+      background: rgba(255,255,255,0.04);
+      border-radius: 10px;
+      padding: .75rem .85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .sc-stat-n { font-size: 1.25rem; font-weight: 700; color: #fff; }
+    .sc-stat-l { font-size: .7rem; color: rgba(255,255,255,0.42); text-transform: uppercase; letter-spacing: .04em; }
+
+    /* ── CTA ── */
+    .cta-section {
+      padding: 6rem 4.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1.5rem;
+    }
+
+    .cta-h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 3.5vw, 2.7rem);
+      font-weight: 600;
+      line-height: 1.22;
+      color: #fff;
+      max-width: 520px;
+    }
+    .cta-h2 .green { color: var(--green-lt); }
+
+    .cta-sub {
+      font-size: .95rem;
+      color: var(--muted);
+      max-width: 440px;
+      line-height: 1.7;
+    }
+
+    .cta-btns {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: .5rem;
+    }
+
+    .cta-note {
+      font-size: .78rem;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 1.8rem 4.5rem;
+      border-top: 0.5px solid rgba(255,255,255,0.07);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .foot-logo { font-size: .88rem; font-weight: 600; color: rgba(255,255,255,0.55); }
+
+    .foot-links {
+      display: flex;
+      gap: 1.6rem;
+      list-style: none;
+    }
+
+    .foot-links a {
+      font-size: .78rem;
+      color: rgba(255,255,255,0.3);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .foot-links a:hover { color: var(--green-lt); }
+
+    .foot-copy { font-size: .75rem; color: rgba(255,255,255,0.25); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; min-height: unset; }
+      .hero-left { padding: 3.5rem 1.5rem 2rem; }
+      .hero-right { padding: 0 1.5rem 3.5rem; }
+      .preview-card { max-width: 100%; }
+      .section, .how-section, .cta-section { padding: 3.5rem 1.5rem; }
+      .grid-3 { grid-template-columns: 1fr; }
+      .how-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      footer { padding: 1.5rem; flex-direction: column; align-items: flex-start; gap: .75rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-wrap"></div>
+  <div class="content">
+
+    <!-- NAV -->
+    <nav class="nav">
+      <a href="/" class="nav-logo">
+        <div class="logo-pip"></div>
+        Vedic Human
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="{{ url_for('login') }}" class="btn btn-outline">Login</a>
+        <a href="{{ url_for('signup') }}" class="btn btn-solid">Get started</a>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-left">
+        <div class="pill">
+          <div class="pill-dot"></div>
+          <span>Ancient wisdom · Modern practice</span>
+        </div>
+
+        <h1 class="hero-h1">
+          Begin your journey<br>
+          towards a <span class="green">better you</span> 🌿
+        </h1>
+
+        <p class="hero-body">
+          Rooted in Vedic tradition, Vedic Human guides your daily yoga and wellness
+          practice — with streak tracking, personalised sessions, and a path that
+          grows with you.
+        </p>
+
+        <div class="hero-btns">
+          <a href="{{ url_for('signup') }}" class="btn btn-solid btn-lg">Start your journey</a>
+          <a href="{{ url_for('login') }}"  class="btn btn-ghost-lg">I already practice →</a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-n">500+</span>
+            <span class="stat-l">Sessions</span>
+          </div>
+          <div class="stat">
+            <span class="stat-n">12 k+</span>
+            <span class="stat-l">Practitioners</span>
+          </div>
+          <div class="stat">
+            <span class="stat-n">21 days</span>
+            <span class="stat-l">Avg streak</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="preview-card">
+          <!-- visual panel matching the signup card photo style -->
+          <div class="card-visual">
+            <div class="sun-halo"></div>
+            <div class="card-visual-label">Vedic Human ·</div>
+
+            <!-- minimal yoga silhouette -->
+            <svg class="yoga-svg" width="170" height="195" viewBox="0 0 170 195" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <ellipse cx="85" cy="188" rx="52" ry="7" fill="rgba(0,0,0,0.22)"/>
+              <!-- head -->
+              <circle cx="85" cy="36" r="15" fill="rgba(190,240,190,0.45)" stroke="rgba(180,255,180,0.5)" stroke-width="1"/>
+              <!-- torso -->
+              <line x1="85" y1="51" x2="85" y2="115" stroke="rgba(190,255,190,0.48)" stroke-width="4.5" stroke-linecap="round"/>
+              <!-- arms raised in tree-ish pose -->
+              <path d="M85 68 Q46 58 28 76" stroke="rgba(190,255,190,0.48)" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+              <path d="M85 68 Q124 53 148 62" stroke="rgba(190,255,190,0.48)" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+              <!-- legs -->
+              <path d="M85 115 Q62 140 48 172" stroke="rgba(190,255,190,0.48)" stroke-width="4" stroke-linecap="round" fill="none"/>
+              <path d="M85 115 Q108 140 122 172" stroke="rgba(190,255,190,0.48)" stroke-width="4" stroke-linecap="round" fill="none"/>
+            </svg>
+
+            <div class="card-visual-tagline">
+              Begin your journey<br>
+              towards a <span class="green">better you</span> 🌿
+            </div>
+          </div>
+
+          <div class="card-feats">
+            <div class="card-feat">
+              <div class="feat-ic">🧘</div>
+              <div class="feat-info">
+                <div class="feat-name">Daily yoga sessions</div>
+                <div class="feat-sub">Guided poses tailored to your level</div>
+              </div>
+            </div>
+            <div class="card-feat">
+              <div class="feat-ic">🔥</div>
+              <div class="feat-info">
+                <div class="feat-name">Streak tracking</div>
+                <div class="feat-sub">Build consistency, day by day</div>
+              </div>
+            </div>
+            <div class="card-feat">
+              <div class="feat-ic">📅</div>
+              <div class="feat-info">
+                <div class="feat-name">Progress calendar</div>
+                <div class="feat-sub">See your growth at a glance</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section" id="features">
+      <div class="sec-hd">
+        <div class="eyebrow">What you get</div>
+        <h2 class="sec-title">Everything you need to thrive</h2>
+        <p class="sec-sub">Built for real practitioners — not just beginners.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="fcard">
+          <div class="fcard-ic">🌅</div>
+          <div class="fcard-title">Morning rituals</div>
+          <div class="fcard-desc">Start each day with an intentional Vedic practice curated for your body and energy level.</div>
+        </div>
+        <div class="fcard">
+          <div class="fcard-ic">🧘</div>
+          <div class="fcard-title">Pose library</div>
+          <div class="fcard-desc">Hundreds of asanas with detailed instructions, benefits, and Sanskrit names.</div>
+        </div>
+        <div class="fcard">
+          <div class="fcard-ic">🔥</div>
+          <div class="fcard-title">Streak system</div>
+          <div class="fcard-desc">Stay motivated with daily streaks, milestone badges, and visual progress tracking.</div>
+        </div>
+        <div class="fcard">
+          <div class="fcard-ic">🍃</div>
+          <div class="fcard-title">Ayurvedic guidance</div>
+          <div class="fcard-desc">Personalised tips rooted in your dosha — Vata, Pitta, or Kapha lifestyle.</div>
+        </div>
+        <div class="fcard">
+          <div class="fcard-ic">📊</div>
+          <div class="fcard-title">Progress insights</div>
+          <div class="fcard-desc">Weekly summaries and trend graphs to see how you've grown over time.</div>
+        </div>
+        <div class="fcard">
+          <div class="fcard-ic">🌙</div>
+          <div class="fcard-title">Evening wind-down</div>
+          <div class="fcard-desc">Calming evening flows and breathing exercises to close your day with peace.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how-section" id="how">
+      <div class="sec-hd">
+        <div class="eyebrow">How it works</div>
+        <h2 class="sec-title">Your path, simplified</h2>
+        <p class="sec-sub">Three steps to a consistent practice.</p>
+      </div>
+
+      <div class="how-grid">
+        <div class="steps">
+          <div class="step">
+            <div class="step-n">01</div>
+            <div class="step-body">
+              <div class="step-title">Create your account</div>
+              <div class="step-desc">Sign up in under a minute. Tell us a little about your practice level and goals.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-n">02</div>
+            <div class="step-body">
+              <div class="step-title">Choose a session</div>
+              <div class="step-desc">Pick from morning flows, breath work, or pose-specific sessions — or let us suggest one.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-n">03</div>
+            <div class="step-body">
+              <div class="step-title">Track and grow</div>
+              <div class="step-desc">Log your practice, build your streak, and watch your progress calendar fill up day by day.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- streak preview card matching your existing progress calendar UI -->
+        <div class="streak-card">
+          <div class="sc-header">
+            <div class="sc-title">Your progress — June 2025</div>
+            <div class="sc-badge">🔥 14 day streak</div>
+          </div>
+
+          <div class="cal">
+            <!-- day headers -->
+            <div class="cd hdr">Mo</div><div class="cd hdr">Tu</div><div class="cd hdr">We</div>
+            <div class="cd hdr">Th</div><div class="cd hdr">Fr</div><div class="cd hdr">Sa</div>
+            <div class="cd hdr">Su</div>
+            <!-- week 1 -->
+            <div class="cd done">2</div><div class="cd done">3</div><div class="cd done">4</div>
+            <div class="cd done">5</div><div class="cd done">6</div><div class="cd done">7</div>
+            <div class="cd done">8</div>
+            <!-- week 2 -->
+            <div class="cd done">9</div><div class="cd done">10</div><div class="cd done">11</div>
+            <div class="cd done">12</div><div class="cd done">13</div><div class="cd done">14</div>
+            <div class="cd done">15</div>
+            <!-- week 3 -->
+            <div class="cd today">16</div><div class="cd">17</div><div class="cd">18</div>
+            <div class="cd">19</div><div class="cd">20</div><div class="cd">21</div>
+            <div class="cd">22</div>
+            <!-- week 4 -->
+            <div class="cd">23</div><div class="cd">24</div><div class="cd">25</div>
+            <div class="cd">26</div><div class="cd">27</div><div class="cd">28</div>
+            <div class="cd">29</div>
+          </div>
+
+          <div class="sc-stats">
+            <div class="sc-stat">
+              <div class="sc-stat-n">14</div>
+              <div class="sc-stat-l">Day streak</div>
+            </div>
+            <div class="sc-stat">
+              <div class="sc-stat-n">28</div>
+              <div class="sc-stat-l">Sessions</div>
+            </div>
+            <div class="sc-stat">
+              <div class="sc-stat-n">7 h</div>
+              <div class="sc-stat-l">Practice time</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <h2 class="cta-h2">
+        Ready to begin your<br>
+        <span class="green">Vedic journey</span>?
+      </h2>
+      <p class="cta-sub">
+        Join thousands of practitioners who have made Vedic Human part of their
+        daily ritual. Free to start — no credit card needed.
+      </p>
+      <div class="cta-btns">
+        <a href="{{ url_for('signup') }}" class="btn btn-solid btn-lg">Create free account</a>
+        <a href="{{ url_for('login') }}"  class="btn btn-ghost-lg">Already a member? Login</a>
+      </div>
+      <div class="cta-note">Free forever for the essentials. No card required.</div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="foot-logo">🌿 Vedic Human</div>
+      <ul class="foot-links">
+        <li><a href="#">Privacy</a></li>
+        <li><a href="#">Terms</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <div class="foot-copy">© 2025 Vedic Human. All rights reserved.</div>
+    </footer>
+
+  </div>
+</body>
+</html>
