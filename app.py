@@ -113,7 +113,13 @@ def get_best_streak(user_id):
 
 # ---------------- ROUTES ----------------
 
+# ✅ NEW: Landing page is now the homepage
 @app.route("/")
+def index():
+    return render_template("index.html")
+
+# ✅ NEW: Login now has its own GET route
+@app.route("/login")
 def login_page():
     return render_template("login.html")
 
