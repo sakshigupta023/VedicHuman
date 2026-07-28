@@ -1,441 +1,212 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VedicHuman – Yog at Ease</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Crimson+Text:ital,wght@0,400;1,400&display=swap" rel="stylesheet"/>
-  <style>
-    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-    :root {
-      --g:    #22c55e;
-      --glt:  #4ade80;
-      --gdk:  #16a34a;
-      --gdim: rgba(74,222,128,0.13);
-      --gbdr: rgba(74,222,128,0.28);
-      --glass: rgba(15,38,17,0.58);
-      --glasslt: rgba(22,52,24,0.42);
-      --bdr: rgba(255,255,255,0.10);
-      --muted: rgba(255,255,255,0.52);
-      --faint: rgba(255,255,255,0.06);
-      --r: 14px;
-    }
-    html { scroll-behavior:smooth; }
-    body {
-      font-family:'Inter',sans-serif;
-      background:#091509;
-      color:#fff;
-      overflow-x:hidden;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>VedicHuman – Yog at Ease</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --bg:        #F6F1E3;
+    --bg-soft:   #EFE7D3;
+    --card:      #FFFDF7;
+    --green:     #6E8B5E;
+    --green-dk:  #4F6B43;
+    --green-lt:  #E1E9D6;
+    --text:      #3A362C;
+    --muted:     #857D68;
+    --border:    #E4D9BE;
+    --r: 16px;
+  }
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+  a{color:inherit;}
 
-    /* BG */
-    .bg {
-      position:fixed; inset:0; z-index:0;
-      background:
-        radial-gradient(ellipse 80% 60% at 5% 45%,  rgba(28,85,28,0.52) 0%, transparent 65%),
-        radial-gradient(ellipse 55% 45% at 90% 10%,  rgba(18,60,20,0.36) 0%, transparent 60%),
-        radial-gradient(ellipse 65% 55% at 50% 95%,  rgba(8,40,12,0.58) 0%, transparent 65%),
-        linear-gradient(148deg,#091509 0%,#122014 48%,#071208 100%);
-    }
-    /* animated leaf canvas sits on top of bg gradient */
-    #leaf-canvas {
-      position:fixed; inset:0; z-index:0;
-      pointer-events:none;
-    }
+  /* ── NAV ── */
+  nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:1.1rem 4rem;
+    background:rgba(246,241,227,0.9);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+    position:sticky;top:0;z-index:200;
+  }
+  .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);}
+  .logo-mark{
+    width:34px;height:34px;border-radius:9px;
+    background:var(--green-lt);border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;font-size:16px;
+  }
+  .logo-name{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:600;line-height:1.1;}
+  .logo-tag{font-size:.63rem;color:var(--green-dk);letter-spacing:.08em;font-weight:500;}
+  .nav-links{display:flex;gap:2rem;list-style:none;}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:.87rem;transition:color .2s;}
+  .nav-links a:hover{color:var(--green-dk);}
+  .nav-right{display:flex;gap:.7rem;align-items:center;}
+  .btn{display:inline-block;text-decoration:none;font-size:.875rem;font-weight:600;
+       cursor:pointer;border-radius:9px;padding:.55rem 1.35rem;transition:all .2s;border:none;}
+  .btn-ol{border:1px solid var(--border);background:transparent;color:var(--text);}
+  .btn-ol:hover{border-color:var(--green);color:var(--green-dk);}
+  .btn-gr{background:var(--green);color:#fff;}
+  .btn-gr:hover{background:var(--green-dk);transform:translateY(-1px);}
+  .btn-lg{font-size:.95rem;padding:.85rem 2rem;border-radius:11px;}
 
-    .wrap { position:relative; z-index:1; }
+  /* ── HERO : short & simple ── */
+  .hero{
+    max-width:680px;margin:0 auto;text-align:center;
+    padding:5.5rem 1.5rem 3.5rem;
+    display:flex;flex-direction:column;align-items:center;gap:1.4rem;
+  }
+  .pill{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--green-lt);border:1px solid var(--border);
+    border-radius:999px;padding:.35rem 1rem;
+  }
+  .pill-dot{width:6px;height:6px;background:var(--green);border-radius:50%;}
+  .pill span{font-size:.7rem;letter-spacing:.07em;text-transform:uppercase;color:var(--green-dk);font-weight:600;}
+  .hero h1{
+    font-family:'Fraunces',serif;font-weight:600;
+    font-size:clamp(2rem,4.5vw,2.9rem);line-height:1.2;color:var(--text);
+  }
+  .hero h1 em{color:var(--green-dk);font-style:italic;}
+  .hero p{font-size:1rem;color:var(--muted);line-height:1.7;max-width:460px;}
+  .hero-btns{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-top:.4rem;}
 
-    /* ── NAV ── */
-    nav {
-      display:flex; align-items:center; justify-content:space-between;
-      padding:1rem 4rem;
-      background:rgba(6,16,7,0.78);
-      backdrop-filter:blur(20px);
-      border-bottom:0.5px solid var(--bdr);
-      position:sticky; top:0; z-index:200;
-    }
-    .logo {
-      display:flex; align-items:center; gap:10px;
-      text-decoration:none; color:#fff;
-    }
-    .logo-mark {
-      width:34px; height:34px;
-      background:linear-gradient(135deg,rgba(34,197,94,0.25),rgba(74,222,128,0.1));
-      border:0.5px solid var(--gbdr);
-      border-radius:9px;
-      display:flex; align-items:center; justify-content:center;
-      font-size:16px;
-    }
-    .logo-text { display:flex; flex-direction:column; gap:0; }
-    .logo-name { font-size:.92rem; font-weight:700; letter-spacing:.02em; line-height:1.1; }
-    .logo-tag  { font-size:.65rem; color:var(--glt); letter-spacing:.08em; font-weight:500; }
+  /* ── IMAGE GALLERY (dynamic / uploaded space) ── */
+  .gallery-section{padding:0 4rem 5rem;}
+  .gallery-wrap{
+    max-width:1100px;margin:0 auto;
+    display:grid;grid-template-columns:1.3fr 1fr 1fr;grid-template-rows:1fr 1fr;
+    gap:.9rem;height:420px;
+  }
+  .gallery-tile{
+    position:relative;border-radius:var(--r);overflow:hidden;
+    border:1px solid var(--border);background:var(--bg-soft);
+  }
+  .gallery-tile:nth-child(1){grid-row:1 / 3;}
+  .gallery-tile img{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    opacity:0;transition:opacity 1.1s ease-in-out;
+  }
+  .gallery-tile img.active{opacity:1;}
+  .gallery-cap{
+    position:absolute;left:0;right:0;bottom:0;
+    padding:.9rem 1.1rem;
+    background:linear-gradient(180deg,transparent,rgba(0,0,0,0.35));
+    color:#fff;font-size:.78rem;font-weight:500;z-index:2;
+  }
+  .gallery-note{
+    text-align:center;font-size:.78rem;color:var(--muted);margin-top:1rem;
+  }
 
-    .nav-links { display:flex; gap:2rem; list-style:none; }
-    .nav-links a { color:var(--muted); text-decoration:none; font-size:.87rem; transition:color .2s; }
-    .nav-links a:hover { color:var(--glt); }
-    .nav-right { display:flex; gap:.7rem; align-items:center; }
+  /* ── SECTION SHARED ── */
+  .section{padding:4.5rem 4rem;}
+  .section-alt{background:var(--bg-soft);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+  .sec-hd{text-align:center;margin-bottom:2.8rem;max-width:520px;margin-left:auto;margin-right:auto;}
+  .eyebrow{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--green-dk);margin-bottom:.6rem;font-weight:600;}
+  .sec-title{font-family:'Fraunces',serif;font-size:clamp(1.5rem,2.6vw,2rem);font-weight:600;color:var(--text);}
+  .sec-sub{margin-top:.6rem;font-size:.92rem;color:var(--muted);line-height:1.65;}
 
-    .btn { display:inline-block; text-decoration:none; font-family:'Inter',sans-serif;
-           font-size:.875rem; font-weight:500; cursor:pointer; border-radius:9px;
-           padding:.5rem 1.3rem; transition:all .2s; line-height:1; border:none; }
-    .btn-ol { border:0.5px solid rgba(255,255,255,0.20); background:transparent; color:rgba(255,255,255,.82); }
-    .btn-ol:hover { border-color:var(--glt); color:var(--glt); }
-    .btn-gr { background:var(--g); color:#fff; font-weight:600; }
-    .btn-gr:hover { background:var(--gdk); transform:translateY(-1px); }
-    .btn-lg { font-size:.98rem; padding:.82rem 2rem; border-radius:11px; }
-    .btn-ghost { font-size:.92rem; padding:.8rem 1.6rem; border-radius:11px;
-                 background:rgba(255,255,255,0.06); border:0.5px solid rgba(255,255,255,.16);
-                 color:rgba(255,255,255,.82); text-decoration:none; display:inline-block; cursor:pointer; transition:all .2s; }
-    .btn-ghost:hover { background:rgba(255,255,255,0.11); }
+  /* ── APP PREVIEW (screenshots, tabbed + auto-rotating) ── */
+  .preview-wrap{max-width:880px;margin:0 auto;}
+  .preview-tabs{display:flex;justify-content:center;gap:.6rem;margin-bottom:1.6rem;flex-wrap:wrap;}
+  .ptab{
+    font-size:.82rem;font-weight:600;color:var(--muted);
+    background:var(--card);border:1px solid var(--border);
+    padding:.5rem 1.1rem;border-radius:999px;cursor:pointer;transition:all .2s;
+  }
+  .ptab.active{background:var(--green);border-color:var(--green);color:#fff;}
+  .preview-frame{
+    background:var(--card);border:1px solid var(--border);border-radius:20px;
+    padding:1.6rem;min-height:300px;
+  }
+  .preview-pane{display:none;}
+  .preview-pane.active{display:block;animation:fadein .4s ease;}
+  @keyframes fadein{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
 
-    /* ── THOUGHT OF THE DAY ── */
-    .totd-bar {
-      background:rgba(34,197,94,0.09);
-      border-bottom:0.5px solid rgba(34,197,94,0.18);
-      padding:.6rem 4rem;
-      display:flex; align-items:center; gap:1rem;
-    }
-    .totd-label {
-      font-size:.7rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
-      color:var(--glt); white-space:nowrap; flex-shrink:0;
-    }
-    .totd-divider { width:1px; height:14px; background:rgba(74,222,128,0.3); flex-shrink:0; }
-    .totd-text {
-      font-family:'Crimson Text',serif; font-style:italic;
-      font-size:.97rem; color:rgba(255,255,255,.78);
-      transition:opacity .5s;
-    }
-    .totd-dot { width:5px; height:5px; border-radius:50%; background:var(--glt); flex-shrink:0; animation:breathe 2.5s infinite; }
-    @keyframes breathe { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.5)} }
+  /* mini asana row (reused screenshot 1) */
+  .mini-asana-row{display:flex;gap:0;border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+  .mini-slot{flex:1;padding:1.1rem .7rem;text-align:center;border-right:1px solid var(--border);}
+  .mini-slot:last-child{border-right:none;}
+  .mini-slot .nm{font-size:.8rem;font-weight:600;color:var(--text);}
+  .mini-slot .sk{font-size:.7rem;color:var(--green-dk);font-style:italic;}
 
-    /* ── HERO ── */
-    .hero {
-      display:grid; grid-template-columns:1fr 1fr;
-      min-height:calc(100vh - 110px);
-      align-items:center;
-    }
-    .hero-l { padding:4rem 3rem 4rem 4.5rem; display:flex; flex-direction:column; gap:1.8rem; }
+  /* mini chat (reused screenshot 2) */
+  .mini-chat{display:flex;flex-direction:column;gap:.7rem;}
+  .mchat-msg{max-width:75%;font-size:.82rem;line-height:1.55;padding:.6rem .9rem;border-radius:12px;}
+  .mchat-usr{align-self:flex-end;background:var(--green-lt);border:1px solid var(--border);border-radius:12px 4px 12px 12px;}
+  .mchat-ai{align-self:flex-start;background:var(--bg-soft);border:1px solid var(--border);border-radius:4px 12px 12px 12px;}
 
-    .pill {
-      display:inline-flex; align-items:center; gap:8px;
-      background:rgba(74,222,128,0.09); border:0.5px solid var(--gbdr);
-      border-radius:999px; padding:.38rem 1rem; width:fit-content;
-    }
-    .pill-dot { width:6px; height:6px; background:var(--glt); border-radius:50%; animation:breathe 2.5s infinite; }
-    .pill span { font-size:.73rem; letter-spacing:.08em; text-transform:uppercase; color:#86efac; font-weight:500; }
+  /* mini progress (reused screenshot 3) */
+  .mini-stats{display:flex;gap:.7rem;margin-bottom:1rem;}
+  .mstat{flex:1;background:var(--bg-soft);border:1px solid var(--border);border-radius:10px;padding:.75rem;text-align:center;}
+  .mstat b{display:block;font-size:1.2rem;color:var(--text);}
+  .mstat span{font-size:.66rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;}
+  .mini-bars{display:flex;align-items:flex-end;gap:6px;height:60px;}
+  .mbar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;}
+  .mbar{width:100%;background:var(--green-lt);border:1px solid var(--border);border-radius:4px 4px 0 0;}
+  .mbar.hi{background:var(--green);}
 
-    .hero-h1 {
-      font-family:'Playfair Display',serif;
-      font-size:clamp(2.3rem,3.8vw,3.4rem);
-      font-weight:600; line-height:1.15; color:#fff;
-    }
-    .hero-h1 .g { color:var(--glt); }
-    .hero-h1 .it { font-style:italic; }
+  /* ── SIMPLE FEATURE STRIP ── */
+  .feat-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;max-width:1000px;margin:0 auto;}
+  .fitem{
+    text-align:center;padding:1.5rem 1rem;background:var(--card);
+    border:1px solid var(--border);border-radius:var(--r);
+  }
+  .fitem .ic{font-size:22px;margin-bottom:.6rem;}
+  .fitem .t{font-size:.87rem;font-weight:600;color:var(--text);margin-bottom:.3rem;}
+  .fitem .d{font-size:.76rem;color:var(--muted);line-height:1.5;}
 
-    .name-explain {
-      background:rgba(255,255,255,0.04);
-      border:0.5px solid rgba(255,255,255,.09);
-      border-left:2px solid var(--glt);
-      border-radius:0 10px 10px 0;
-      padding:.9rem 1.2rem;
-      display:flex; flex-direction:column; gap:.35rem;
-    }
-    .name-explain .ne-title { font-size:.72rem; letter-spacing:.09em; text-transform:uppercase; color:var(--glt); font-weight:600; }
-    .name-explain .ne-body  { font-size:.88rem; color:rgba(255,255,255,.65); line-height:1.6; }
-    .ne-body strong { color:rgba(255,255,255,.88); font-weight:600; }
+  /* ── CTA ── */
+  .cta-section{padding:5rem 1.5rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:1.2rem;}
+  .cta-section h2{font-family:'Fraunces',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:600;max-width:480px;}
+  .cta-section h2 em{color:var(--green-dk);font-style:italic;}
+  .cta-section p{font-size:.92rem;color:var(--muted);max-width:400px;line-height:1.7;}
+  .cta-note{font-size:.74rem;color:var(--muted);opacity:.75;}
 
-    .hero-body { font-size:.97rem; color:var(--muted); line-height:1.76; max-width:440px; }
+  /* ── FOOTER ── */
+  footer{
+    padding:1.6rem 4rem;border-top:1px solid var(--border);
+    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+  }
+  .foot-logo{font-size:.85rem;font-weight:700;color:var(--muted);display:flex;align-items:center;gap:.4rem;}
+  .foot-links{display:flex;gap:1.5rem;list-style:none;}
+  .foot-links a{font-size:.76rem;color:var(--muted);text-decoration:none;}
+  .foot-links a:hover{color:var(--green-dk);}
+  .foot-copy{font-size:.72rem;color:var(--muted);opacity:.7;}
 
-    .hero-btns { display:flex; gap:1rem; flex-wrap:wrap; align-items:center; }
-
-    .hero-stats { display:flex; gap:2.8rem; padding-top:.3rem; }
-    .stat { display:flex; flex-direction:column; gap:3px; }
-    .stat-n { font-size:1.45rem; font-weight:700; color:#fff; }
-    .stat-l { font-size:.7rem; color:rgba(255,255,255,.38); letter-spacing:.06em; text-transform:uppercase; }
-
-    /* hero right */
-    .hero-r {
-      display:flex; align-items:center; justify-content:center;
-      padding:3rem 4rem 3rem 1.5rem;
-    }
-    .hero-visual {
-      width:100%; max-width:420px;
-      display:flex; flex-direction:column; gap:1rem;
-    }
-
-    /* asana showcase card */
-    .asana-card {
-      background:var(--glass);
-      backdrop-filter:blur(22px);
-      border:0.5px solid var(--bdr);
-      border-radius:20px; overflow:hidden;
-    }
-    .asana-header {
-      padding:.85rem 1.2rem;
-      display:flex; align-items:center; justify-content:space-between;
-      border-bottom:0.5px solid var(--bdr);
-    }
-    .asana-header-left { display:flex; align-items:center; gap:.6rem; }
-    .asana-dot { width:8px; height:8px; border-radius:50%; background:var(--g); animation:breathe 2.5s infinite; }
-    .asana-label { font-size:.78rem; font-weight:600; color:var(--glt); letter-spacing:.05em; }
-    .asana-sub   { font-size:.72rem; color:var(--muted); }
-
-    .asana-poses {
-      display:flex; gap:0;
-      overflow:hidden;
-    }
-    .pose-slot {
-      flex:1; padding:1.2rem .8rem;
-      display:flex; flex-direction:column; align-items:center; gap:.6rem;
-      border-right:0.5px solid var(--bdr); cursor:pointer;
-      transition:background .2s;
-    }
-    .pose-slot:last-child { border-right:none; }
-    .pose-slot:hover { background:rgba(74,222,128,0.06); }
-    .pose-slot.active { background:rgba(74,222,128,0.10); }
-    .pose-name { font-size:.72rem; font-weight:600; color:#fff; text-align:center; }
-    .pose-sanskrit { font-size:.65rem; color:var(--glt); font-style:italic; text-align:center; }
-
-    /* mini quick-info card */
-    .mini-cards { display:flex; gap:.75rem; }
-    .mini-card {
-      flex:1; background:var(--glasslt); backdrop-filter:blur(14px);
-      border:0.5px solid var(--bdr); border-radius:12px;
-      padding:.85rem 1rem;
-      display:flex; flex-direction:column; gap:.35rem;
-    }
-    .mini-ic { font-size:18px; margin-bottom:.1rem; }
-    .mini-title { font-size:.8rem; font-weight:600; color:#fff; }
-    .mini-val   { font-size:.72rem; color:var(--muted); }
-
-    /* ── SECTION SHARED ── */
-    .section { padding:5.5rem 4.5rem; }
-    .section-alt { padding:5.5rem 4.5rem; background:rgba(6,16,7,0.55); border-top:0.5px solid rgba(255,255,255,.06); border-bottom:0.5px solid rgba(255,255,255,.06); }
-    .sec-hd { text-align:center; margin-bottom:3.5rem; }
-    .eyebrow { font-size:.7rem; letter-spacing:.13em; text-transform:uppercase; color:var(--glt); margin-bottom:.65rem; }
-    .sec-title { font-family:'Playfair Display',serif; font-size:clamp(1.65rem,2.8vw,2.3rem); font-weight:600; color:#fff; line-height:1.27; }
-    .sec-sub { margin-top:.7rem; font-size:.92rem; color:var(--muted); max-width:500px; margin-left:auto; margin-right:auto; line-height:1.65; }
-
-    /* ── ASANA LIBRARY ── */
-    .asana-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; }
-    .acard {
-      background:var(--glasslt); backdrop-filter:blur(14px);
-      border:0.5px solid var(--bdr); border-radius:var(--r);
-      padding:1.4rem 1.1rem 1.1rem;
-      display:flex; flex-direction:column; align-items:center; gap:.75rem;
-      transition:border-color .2s, transform .2s; cursor:default;
-    }
-    .acard:hover { border-color:var(--gbdr); transform:translateY(-3px); }
-    .acard-svg { width:80px; height:80px; }
-    .acard-name { font-size:.88rem; font-weight:600; color:#fff; text-align:center; }
-    .acard-skt  { font-size:.73rem; color:var(--glt); font-style:italic; text-align:center; }
-    .acard-tags { display:flex; gap:.4rem; flex-wrap:wrap; justify-content:center; }
-    .tag {
-      font-size:.63rem; padding:2px 8px; border-radius:999px;
-      background:rgba(74,222,128,0.10); border:0.5px solid rgba(74,222,128,0.22);
-      color:#86efac; font-weight:500;
-    }
-
-    /* ── AI SECTION ── */
-    .ai-grid { display:grid; grid-template-columns:1fr 1fr; gap:3.5rem; align-items:center; }
-    .ai-left { display:flex; flex-direction:column; gap:1.5rem; }
-    .ai-title { font-family:'Playfair Display',serif; font-size:clamp(1.6rem,2.5vw,2.1rem); font-weight:600; line-height:1.28; color:#fff; }
-    .ai-title .g { color:var(--glt); }
-    .ai-body { font-size:.92rem; color:var(--muted); line-height:1.72; }
-
-    .ai-features { display:flex; flex-direction:column; gap:.85rem; }
-    .ai-feat {
-      display:flex; gap:.9rem; align-items:flex-start;
-      background:var(--faint); border:0.5px solid var(--bdr);
-      border-radius:11px; padding:.85rem 1rem;
-    }
-    .ai-feat-ic {
-      width:36px; height:36px; border-radius:9px; flex-shrink:0;
-      background:var(--gdim); border:0.5px solid var(--gbdr);
-      display:flex; align-items:center; justify-content:center; font-size:17px;
-    }
-    .ai-feat-text { display:flex; flex-direction:column; gap:3px; }
-    .ai-feat-name { font-size:.87rem; font-weight:600; color:#fff; }
-    .ai-feat-desc { font-size:.78rem; color:var(--muted); line-height:1.55; }
-
-    /* ai chat mockup */
-    .ai-mockup {
-      background:var(--glass); backdrop-filter:blur(20px);
-      border:0.5px solid var(--bdr); border-radius:18px; overflow:hidden;
-    }
-    .ai-mock-header {
-      padding:.85rem 1.1rem; border-bottom:0.5px solid var(--bdr);
-      display:flex; align-items:center; gap:.6rem;
-    }
-    .ai-mock-dot { width:7px; height:7px; border-radius:50%; background:var(--g); animation:breathe 2.5s infinite; }
-    .ai-mock-title { font-size:.8rem; font-weight:600; color:#fff; }
-    .ai-mock-sub   { font-size:.7rem; color:var(--muted); }
-    .ai-chat { padding:1.1rem; display:flex; flex-direction:column; gap:.85rem; }
-    .msg { display:flex; gap:.6rem; align-items:flex-start; }
-    .msg-ai  { flex-direction:row; }
-    .msg-usr { flex-direction:row-reverse; }
-    .msg-av {
-      width:28px; height:28px; border-radius:50%; flex-shrink:0;
-      display:flex; align-items:center; justify-content:center;
-      font-size:12px; font-weight:700;
-    }
-    .av-ai  { background:var(--gdim); border:0.5px solid var(--gbdr); color:var(--glt); }
-    .av-usr { background:rgba(255,255,255,0.09); color:rgba(255,255,255,.7); }
-    .msg-bubble {
-      max-width:78%; font-size:.8rem; line-height:1.55;
-      padding:.6rem .85rem; border-radius:12px;
-    }
-    .bubble-ai  { background:rgba(255,255,255,0.06); border:0.5px solid rgba(255,255,255,.09); color:rgba(255,255,255,.82); border-radius:4px 12px 12px 12px; }
-    .bubble-usr { background:rgba(34,197,94,0.18); border:0.5px solid rgba(34,197,94,0.28); color:rgba(255,255,255,.88); border-radius:12px 4px 12px 12px; }
-    .bubble-ai .g { color:var(--glt); font-weight:600; }
-    .ai-input-row {
-      margin:0 1.1rem 1.1rem;
-      display:flex; gap:.5rem; align-items:center;
-      background:rgba(255,255,255,0.04); border:0.5px solid rgba(255,255,255,.10);
-      border-radius:10px; padding:.55rem .85rem;
-    }
-    .ai-input-ph { font-size:.78rem; color:rgba(255,255,255,.3); flex:1; }
-    .ai-send { font-size:13px; color:var(--glt); cursor:pointer; }
-
-    /* ── PROGRESS SECTION ── */
-    .prog-grid { display:grid; grid-template-columns:1fr 1fr; gap:3.5rem; align-items:start; }
-    .prog-features { display:flex; flex-direction:column; gap:1rem; }
-    .pf {
-      display:flex; gap:1rem; align-items:flex-start;
-      padding:1.1rem; background:var(--faint);
-      border:0.5px solid var(--bdr); border-radius:12px;
-      transition:border-color .2s;
-    }
-    .pf:hover { border-color:var(--gbdr); }
-    .pf-ic {
-      width:40px; height:40px; border-radius:10px; flex-shrink:0;
-      background:var(--gdim); border:0.5px solid var(--gbdr);
-      display:flex; align-items:center; justify-content:center; font-size:19px;
-    }
-    .pf-body { display:flex; flex-direction:column; gap:4px; }
-    .pf-title { font-size:.92rem; font-weight:600; color:#fff; }
-    .pf-desc  { font-size:.8rem; color:var(--muted); line-height:1.58; }
-
-    /* progress mockup */
-    .prog-mockup {
-      background:var(--glass); backdrop-filter:blur(20px);
-      border:0.5px solid var(--bdr); border-radius:18px;
-      padding:1.5rem; display:flex; flex-direction:column; gap:1.25rem;
-    }
-    .pm-header { display:flex; justify-content:space-between; align-items:center; }
-    .pm-title { font-size:.9rem; font-weight:600; color:#fff; }
-    .pm-badge {
-      font-size:.72rem; font-weight:600; color:var(--glt);
-      background:var(--gdim); border:0.5px solid var(--gbdr);
-      border-radius:999px; padding:3px 10px;
-    }
-    .pm-stats { display:flex; gap:.75rem; }
-    .pm-stat {
-      flex:1; background:rgba(255,255,255,0.04); border-radius:10px;
-      padding:.75rem; display:flex; flex-direction:column; gap:3px;
-    }
-    .pm-stat-n { font-size:1.3rem; font-weight:700; color:#fff; }
-    .pm-stat-l { font-size:.68rem; color:rgba(255,255,255,.4); text-transform:uppercase; letter-spacing:.04em; }
-
-    /* calendar */
-    .cal { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
-    .cd {
-      aspect-ratio:1; border-radius:5px;
-      background:rgba(255,255,255,0.05);
-      display:flex; align-items:center; justify-content:center;
-      font-size:.65rem; color:rgba(255,255,255,.25);
-    }
-    .cd.hdr { background:transparent; color:rgba(255,255,255,.32); font-size:.62rem; }
-    .cd.done { background:rgba(74,222,128,0.22); color:var(--glt); font-weight:600; }
-    .cd.today { background:var(--g); color:#fff; font-weight:700; }
-
-    /* bar chart */
-    .bar-chart { display:flex; align-items:flex-end; gap:6px; height:70px; }
-    .bar-col { display:flex; flex-direction:column; align-items:center; gap:4px; flex:1; }
-    .bar { width:100%; background:rgba(74,222,128,0.20); border-radius:4px 4px 0 0; border:0.5px solid rgba(74,222,128,0.30); transition:height .3s; }
-    .bar.hi { background:rgba(74,222,128,0.55); border-color:rgba(74,222,128,0.6); }
-    .bar-lbl { font-size:.6rem; color:rgba(255,255,255,.35); }
-
-    /* ── FEATURES GRID ── */
-    .feat-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.1rem; }
-    .fcard {
-      background:var(--glasslt); backdrop-filter:blur(14px);
-      border:0.5px solid var(--bdr); border-radius:var(--r);
-      padding:1.65rem 1.4rem; transition:border-color .2s, transform .2s;
-    }
-    .fcard:hover { border-color:var(--gbdr); transform:translateY(-3px); }
-    .fcard-ic {
-      width:42px; height:42px; border-radius:11px;
-      background:var(--gdim); border:0.5px solid var(--gbdr);
-      display:flex; align-items:center; justify-content:center;
-      font-size:19px; margin-bottom:.95rem;
-    }
-    .fcard-title { font-size:.93rem; font-weight:600; color:#fff; margin-bottom:.42rem; }
-    .fcard-desc  { font-size:.82rem; color:var(--muted); line-height:1.62; }
-
-    /* ── CTA ── */
-    .cta-section {
-      padding:6rem 4.5rem;
-      display:flex; flex-direction:column; align-items:center;
-      text-align:center; gap:1.5rem;
-    }
-    .cta-h2 {
-      font-family:'Playfair Display',serif;
-      font-size:clamp(1.9rem,3.5vw,2.75rem);
-      font-weight:600; line-height:1.2; color:#fff; max-width:540px;
-    }
-    .cta-h2 .g { color:var(--glt); }
-    .cta-sub { font-size:.95rem; color:var(--muted); max-width:430px; line-height:1.7; }
-    .cta-btns { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; margin-top:.5rem; }
-    .cta-note { font-size:.75rem; color:rgba(255,255,255,.28); }
-
-    /* ── FOOTER ── */
-    footer {
-      padding:1.75rem 4.5rem;
-      border-top:0.5px solid rgba(255,255,255,.07);
-      display:flex; align-items:center; justify-content:space-between;
-      flex-wrap:wrap; gap:1rem;
-    }
-    .foot-logo { font-size:.88rem; font-weight:700; color:rgba(255,255,255,.55); display:flex; align-items:center; gap:.5rem; }
-    .foot-links { display:flex; gap:1.6rem; list-style:none; }
-    .foot-links a { font-size:.77rem; color:rgba(255,255,255,.28); text-decoration:none; transition:color .2s; }
-    .foot-links a:hover { color:var(--glt); }
-    .foot-copy { font-size:.74rem; color:rgba(255,255,255,.22); }
-
-    /* responsive */
-    @media(max-width:960px){
-      nav { padding:1rem 1.5rem; }
-      .nav-links { display:none; }
-      .totd-bar { padding:.6rem 1.5rem; }
-      .hero { grid-template-columns:1fr; min-height:unset; }
-      .hero-l { padding:3rem 1.5rem 2rem; }
-      .hero-r { padding:0 1.5rem 3rem; }
-      .section, .section-alt, .cta-section { padding:3.5rem 1.5rem; }
-      .asana-grid { grid-template-columns:repeat(2,1fr); }
-      .ai-grid, .prog-grid { grid-template-columns:1fr; gap:2.5rem; }
-      .feat-grid { grid-template-columns:1fr; }
-      footer { padding:1.5rem; flex-direction:column; align-items:flex-start; }
-    }
-  </style>
+  @media(max-width:960px){
+    nav{padding:1rem 1.4rem;}
+    .nav-links{display:none;}
+    .section,.section-alt{padding:3rem 1.4rem;}
+    .gallery-section{padding:0 1.4rem 3.5rem;}
+    .gallery-wrap{grid-template-columns:1fr 1fr;grid-template-rows:auto;height:auto;}
+    .gallery-tile{height:160px;}
+    .gallery-tile:nth-child(1){grid-column:1/3;height:220px;}
+    .feat-strip{grid-template-columns:1fr 1fr;}
+    footer{flex-direction:column;align-items:flex-start;padding:1.4rem;}
+  }
+</style>
 </head>
 <body>
-<div class="bg"></div>
-<canvas id="leaf-canvas"></canvas>
-<div class="wrap">
 
 <!-- ── NAV ── -->
 <nav>
   <a href="/" class="logo">
     <div class="logo-mark">🌿</div>
-    <div class="logo-text">
-      <span class="logo-name">VedicHuman</span>
-      <span class="logo-tag">Yog at Ease</span>
+    <div>
+      <div class="logo-name">VedicHuman</div>
+      <div class="logo-tag">Yog at Ease</div>
     </div>
   </a>
   <ul class="nav-links">
-    <li><a href="#asanas">Asanas</a></li>
-    <li><a href="#ai">AI Guide</a></li>
-    <li><a href="#progress">Progress</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#preview">See it in action</a></li>
     <li><a href="#features">Features</a></li>
   </ul>
   <div class="nav-right">
@@ -444,610 +215,162 @@
   </div>
 </nav>
 
-<!-- ── THOUGHT OF THE DAY ── -->
-<div class="totd-bar">
-  <span class="totd-label">🕉 Today's wisdom</span>
-  <div class="totd-divider"></div>
-  <span class="totd-text" id="totd-text">Loading…</span>
-  <div class="totd-dot"></div>
-</div>
-
-<!-- ── HERO ── -->
+<!-- ── HERO : short intro only ── -->
 <section class="hero">
-  <div class="hero-l">
-    <div class="pill">
-      <div class="pill-dot"></div>
-      <span>Ancient Vedic wisdom · Modern living</span>
-    </div>
-
-    <h1 class="hero-h1">
-      <span class="it g">Yog</span> at Ease —<br>
-      find stillness in<br>
-      every <span class="g">breath</span> 🌿
-    </h1>
-
-    <!-- name explanation -->
-    <div class="name-explain">
-      <span class="ne-title">Why "VedicHuman: Yog at Ease"?</span>
-      <p class="ne-body">
-        <strong>Yog</strong> (योग) — not "Yoga" — is the original Sanskrit word meaning <strong>union</strong> of body, mind, and soul.
-        <strong>Vedic</strong> honours the ancient <em>Vedas</em>, the 5,000-year-old source of this wisdom.
-        <strong>Ease</strong> because true Yog is never forced — it flows naturally into your day.
-        We are <strong>VedicHuman</strong>: the human who lives in balance.
-      </p>
-    </div>
-
-    <p class="hero-body">
-      Guided sessions, AI-powered pose suggestions, streak tracking, and a Vedic library —
-      all in one place. Start where you are, grow every day.
-    </p>
-
-    <div class="hero-btns">
-      <a href="{{ url_for('signup_page') }}" class="btn btn-gr btn-lg">Begin your journey</a>
-      <a href="{{ url_for('login_page') }}" class="btn-ghost">I already practice →</a>
-    </div>
-
-    <div class="hero-stats">
-      <div class="stat"><span class="stat-n">50+</span><span class="stat-l">Asanas</span></div>
-      <div class="stat"><span class="stat-n">AI</span><span class="stat-l">Powered guide</span></div>
-      <div class="stat"><span class="stat-n">∞</span><span class="stat-l">Your streak</span></div>
-    </div>
-  </div>
-
-  <div class="hero-r">
-    <div class="hero-visual">
-      <!-- asana showcase card -->
-      <div class="asana-card">
-        <div class="asana-header">
-          <div class="asana-header-left">
-            <div class="asana-dot"></div>
-            <span class="asana-label">Today's Asanas</span>
-          </div>
-          <span class="asana-sub">Tap to explore</span>
-        </div>
-        <div class="asana-poses">
-          <!-- Tadasana -->
-          <div class="pose-slot active" onclick="selectPose(this,'Mountain Pose','Tadasana')">
-            <svg width="52" height="68" viewBox="0 0 52 68" fill="none">
-              <circle cx="26" cy="8" r="7" fill="rgba(74,222,128,0.5)" stroke="rgba(74,222,128,0.8)" stroke-width="1"/>
-              <line x1="26" y1="15" x2="26" y2="42" stroke="rgba(74,222,128,0.7)" stroke-width="3.5" stroke-linecap="round"/>
-              <line x1="26" y1="22" x2="10" y2="32" stroke="rgba(74,222,128,0.7)" stroke-width="2.5" stroke-linecap="round"/>
-              <line x1="26" y1="22" x2="42" y2="32" stroke="rgba(74,222,128,0.7)" stroke-width="2.5" stroke-linecap="round"/>
-              <line x1="26" y1="42" x2="18" y2="64" stroke="rgba(74,222,128,0.7)" stroke-width="3" stroke-linecap="round"/>
-              <line x1="26" y1="42" x2="34" y2="64" stroke="rgba(74,222,128,0.7)" stroke-width="3" stroke-linecap="round"/>
-            </svg>
-            <span class="pose-name">Mountain</span>
-            <span class="pose-sanskrit">Tadasana</span>
-          </div>
-          <!-- Vrikshasana / Tree -->
-          <div class="pose-slot" onclick="selectPose(this,'Tree Pose','Vrikshasana')">
-            <svg width="52" height="68" viewBox="0 0 52 68" fill="none">
-              <circle cx="26" cy="8" r="7" fill="rgba(74,222,128,0.5)" stroke="rgba(74,222,128,0.8)" stroke-width="1"/>
-              <line x1="26" y1="15" x2="26" y2="42" stroke="rgba(74,222,128,0.7)" stroke-width="3.5" stroke-linecap="round"/>
-              <path d="M26 24 Q12 16 8 8" stroke="rgba(74,222,128,0.7)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-              <path d="M26 24 Q40 16 44 8" stroke="rgba(74,222,128,0.7)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-              <line x1="26" y1="42" x2="26" y2="64" stroke="rgba(74,222,128,0.7)" stroke-width="3" stroke-linecap="round"/>
-              <path d="M26 52 Q18 48 14 54" stroke="rgba(74,222,128,0.5)" stroke-width="2" stroke-linecap="round" fill="none"/>
-            </svg>
-            <span class="pose-name">Tree</span>
-            <span class="pose-sanskrit">Vrikshasana</span>
-          </div>
-          <!-- Warrior -->
-          <div class="pose-slot" onclick="selectPose(this,'Warrior II','Virabhadrasana')">
-            <svg width="52" height="68" viewBox="0 0 52 68" fill="none">
-              <circle cx="26" cy="8" r="7" fill="rgba(74,222,128,0.5)" stroke="rgba(74,222,128,0.8)" stroke-width="1"/>
-              <line x1="26" y1="15" x2="26" y2="38" stroke="rgba(74,222,128,0.7)" stroke-width="3.5" stroke-linecap="round"/>
-              <line x1="6"  y1="26" x2="46" y2="26" stroke="rgba(74,222,128,0.7)" stroke-width="2.5" stroke-linecap="round"/>
-              <path d="M26 38 Q16 50 10 64" stroke="rgba(74,222,128,0.7)" stroke-width="3" stroke-linecap="round" fill="none"/>
-              <path d="M26 38 Q36 46 42 56" stroke="rgba(74,222,128,0.7)" stroke-width="3" stroke-linecap="round" fill="none"/>
-            </svg>
-            <span class="pose-name">Warrior II</span>
-            <span class="pose-sanskrit">Virabhadrasana</span>
-          </div>
-          <!-- Child -->
-          <div class="pose-slot" onclick="selectPose(this,"Child's Pose",'Balasana')">
-            <svg width="52" height="68" viewBox="0 0 52 68" fill="none">
-              <ellipse cx="14" cy="36" rx="8" ry="8" fill="rgba(74,222,128,0.45)" stroke="rgba(74,222,128,0.7)" stroke-width="1"/>
-              <path d="M14 36 Q26 28 38 30 Q46 31 48 36" stroke="rgba(74,222,128,0.7)" stroke-width="3" stroke-linecap="round" fill="none"/>
-              <path d="M14 36 Q12 48 10 56" stroke="rgba(74,222,128,0.6)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-              <path d="M14 36 Q20 48 22 56" stroke="rgba(74,222,128,0.6)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-              <line x1="10" y1="56" x2="22" y2="56" stroke="rgba(74,222,128,0.5)" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-            <span class="pose-name">Child's</span>
-            <span class="pose-sanskrit">Balasana</span>
-          </div>
-        </div>
-        <div style="padding:.75rem 1rem; border-top:0.5px solid var(--bdr); display:flex; justify-content:space-between; align-items:center;">
-          <span id="pose-display" style="font-size:.8rem; color:rgba(255,255,255,.7);">🧘 <strong style="color:#fff">Mountain Pose</strong> — Tadasana</span>
-          <span style="font-size:.72rem; color:var(--glt);">+ 50 more →</span>
-        </div>
-      </div>
-
-      <div class="mini-cards">
-        <div class="mini-card">
-          <div class="mini-ic">🔥</div>
-          <div class="mini-title">Current streak</div>
-          <div class="mini-val">14 days running</div>
-        </div>
-        <div class="mini-card">
-          <div class="mini-ic">🤖</div>
-          <div class="mini-title">AI suggestion</div>
-          <div class="mini-val">Balasana for today</div>
-        </div>
-        <div class="mini-card">
-          <div class="mini-ic">📅</div>
-          <div class="mini-title">Sessions logged</div>
-          <div class="mini-val">28 this month</div>
-        </div>
-      </div>
-    </div>
+  <div class="pill"><div class="pill-dot"></div><span>Vedic wisdom, made simple</span></div>
+  <h1>Find stillness in every <em>breath</em></h1>
+  <p>VedicHuman brings guided Yog, gentle AI guidance and daily progress tracking into one calm space.</p>
+  <div class="hero-btns">
+    <a href="{{ url_for('signup_page') }}" class="btn btn-gr btn-lg">Begin your journey</a>
+    <a href="{{ url_for('login_page') }}" class="btn btn-ol btn-lg">I already practice</a>
   </div>
 </section>
 
-<!-- ── ASANA LIBRARY ── -->
-<section class="section-alt" id="asanas">
+<!-- ── DYNAMIC IMAGE GALLERY (uploaded images rotate here) ── -->
+<section class="gallery-section" id="gallery">
+  <div class="gallery-wrap">
+    <div class="gallery-tile" data-slot="0"><div class="gallery-cap">Morning practice</div></div>
+    <div class="gallery-tile" data-slot="1"><div class="gallery-cap">Guided breathing</div></div>
+    <div class="gallery-tile" data-slot="2"><div class="gallery-cap">Evening calm</div></div>
+    <div class="gallery-tile" data-slot="3"><div class="gallery-cap">Your streak</div></div>
+  </div>
+  <p class="gallery-note">This space rotates through your uploaded photos automatically — just add image paths in <code>galleryImages</code> below.</p>
+</section>
+
+<!-- ── APP PREVIEW / SCREENSHOTS ── -->
+<section class="section-alt" id="preview">
   <div class="sec-hd">
-    <div class="eyebrow">Pose Library</div>
-    <h2 class="sec-title">50+ Asanas, beautifully guided</h2>
-    <p class="sec-sub">From beginner flows to advanced holds — every asana explained with Sanskrit roots, benefits, and step-by-step guidance.</p>
+    <div class="eyebrow">Inside the app</div>
+    <h2 class="sec-title">A quiet look at your practice</h2>
+    <p class="sec-sub">A few real screens from VedicHuman — tap through, or let them auto-play.</p>
   </div>
 
-  <div class="asana-grid">
-    <!-- Tadasana -->
-    <div class="acard">
-      <svg class="acard-svg" viewBox="0 0 80 90" fill="none">
-        <circle cx="40" cy="11" r="9" fill="rgba(74,222,128,0.4)" stroke="rgba(74,222,128,0.7)" stroke-width="1.2"/>
-        <line x1="40" y1="20" x2="40" y2="58" stroke="rgba(74,222,128,0.7)" stroke-width="4" stroke-linecap="round"/>
-        <line x1="40" y1="32" x2="18" y2="46" stroke="rgba(74,222,128,0.65)" stroke-width="3" stroke-linecap="round"/>
-        <line x1="40" y1="32" x2="62" y2="46" stroke="rgba(74,222,128,0.65)" stroke-width="3" stroke-linecap="round"/>
-        <line x1="40" y1="58" x2="30" y2="84" stroke="rgba(74,222,128,0.65)" stroke-width="3.5" stroke-linecap="round"/>
-        <line x1="40" y1="58" x2="50" y2="84" stroke="rgba(74,222,128,0.65)" stroke-width="3.5" stroke-linecap="round"/>
-      </svg>
-      <div class="acard-name">Mountain Pose</div>
-      <div class="acard-skt">Tadasana</div>
-      <div class="acard-tags"><span class="tag">Beginner</span><span class="tag">Balance</span><span class="tag">Posture</span></div>
+  <div class="preview-wrap">
+    <div class="preview-tabs">
+      <div class="ptab active" data-tab="0">Asana Library</div>
+      <div class="ptab" data-tab="1">AI Guide</div>
+      <div class="ptab" data-tab="2">Progress</div>
     </div>
 
-    <!-- Vrikshasana -->
-    <div class="acard">
-      <svg class="acard-svg" viewBox="0 0 80 90" fill="none">
-        <circle cx="40" cy="11" r="9" fill="rgba(74,222,128,0.4)" stroke="rgba(74,222,128,0.7)" stroke-width="1.2"/>
-        <line x1="40" y1="20" x2="40" y2="60" stroke="rgba(74,222,128,0.7)" stroke-width="4" stroke-linecap="round"/>
-        <path d="M40 32 Q22 20 16 8" stroke="rgba(74,222,128,0.65)" stroke-width="3" stroke-linecap="round" fill="none"/>
-        <path d="M40 32 Q58 20 64 8" stroke="rgba(74,222,128,0.65)" stroke-width="3" stroke-linecap="round" fill="none"/>
-        <line x1="40" y1="60" x2="40" y2="86" stroke="rgba(74,222,128,0.65)" stroke-width="3.5" stroke-linecap="round"/>
-        <path d="M40 70 Q26 62 20 70" stroke="rgba(74,222,128,0.5)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-      </svg>
-      <div class="acard-name">Tree Pose</div>
-      <div class="acard-skt">Vrikshasana</div>
-      <div class="acard-tags"><span class="tag">Beginner</span><span class="tag">Focus</span><span class="tag">Balance</span></div>
-    </div>
-
-    <!-- Downdog -->
-    <div class="acard">
-      <svg class="acard-svg" viewBox="0 0 80 90" fill="none">
-        <circle cx="16" cy="32" r="8" fill="rgba(74,222,128,0.4)" stroke="rgba(74,222,128,0.7)" stroke-width="1.2"/>
-        <path d="M16 40 L40 22 L64 40" stroke="rgba(74,222,128,0.7)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-        <line x1="14" y1="56" x2="14" y2="80" stroke="rgba(74,222,128,0.65)" stroke-width="3" stroke-linecap="round"/>
-        <line x1="20" y1="56" x2="22" y2="80" stroke="rgba(74,222,128,0.65)" stroke-width="3" stroke-linecap="round"/>
-        <line x1="60" y1="54" x2="54" y2="78" stroke="rgba(74,222,128,0.65)" stroke-width="3" stroke-linecap="round"/>
-        <line x1="66" y1="54" x2="66" y2="78" stroke="rgba(74,222,128,0.65)" stroke-width="3" stroke-linecap="round"/>
-      </svg>
-      <div class="acard-name">Downward Dog</div>
-      <div class="acard-skt">Adho Mukha Svanasana</div>
-      <div class="acard-tags"><span class="tag">Intermediate</span><span class="tag">Stretch</span></div>
-    </div>
-
-    <!-- Shavasana -->
-    <div class="acard">
-      <svg class="acard-svg" viewBox="0 0 80 90" fill="none">
-        <ellipse cx="12" cy="54" rx="9" ry="9" fill="rgba(74,222,128,0.4)" stroke="rgba(74,222,128,0.7)" stroke-width="1.2"/>
-        <line x1="21" y1="54" x2="70" y2="54" stroke="rgba(74,222,128,0.7)" stroke-width="4" stroke-linecap="round"/>
-        <path d="M30 54 L26 68" stroke="rgba(74,222,128,0.6)" stroke-width="3" stroke-linecap="round"/>
-        <path d="M44 54 L40 68" stroke="rgba(74,222,128,0.6)" stroke-width="3" stroke-linecap="round"/>
-        <path d="M38 45 L50 38" stroke="rgba(74,222,128,0.55)" stroke-width="2.5" stroke-linecap="round"/>
-        <path d="M50 42 L62 36" stroke="rgba(74,222,128,0.45)" stroke-width="2.5" stroke-linecap="round"/>
-      </svg>
-      <div class="acard-name">Corpse Pose</div>
-      <div class="acard-skt">Shavasana</div>
-      <div class="acard-tags"><span class="tag">All levels</span><span class="tag">Rest</span><span class="tag">Calm</span></div>
-    </div>
-  </div>
-
-  <div style="text-align:center; margin-top:2.5rem;">
-    <a href="{{ url_for('login_page') }}" class="btn btn-gr btn-lg">Explore full library →</a>
-  </div>
-</section>
-
-<!-- ── AI SECTION ── -->
-<section class="section" id="ai">
-  <div class="ai-grid">
-    <div class="ai-left">
-      <div class="eyebrow">AI-Powered Guide</div>
-      <h2 class="ai-title">Your personal <span class="g">Vedic AI</span> companion</h2>
-      <p class="ai-body">
-        VedicHuman's AI understands your practice history, energy level, and goals — 
-        then suggests the perfect asana, breathing exercise, or Vedic reading for your day.
-      </p>
-      <div class="ai-features">
-        <div class="ai-feat">
-          <div class="ai-feat-ic">🧠</div>
-          <div class="ai-feat-text">
-            <div class="ai-feat-name">Personalised daily suggestions</div>
-            <div class="ai-feat-desc">AI analyses your streak, past sessions, and dosha type to suggest the right practice today.</div>
-          </div>
-        </div>
-        <div class="ai-feat">
-          <div class="ai-feat-ic">🗣</div>
-          <div class="ai-feat-text">
-            <div class="ai-feat-name">Ask anything about Yog</div>
-            <div class="ai-feat-desc">From "what is Pranayama?" to "suggest a 10-minute morning flow" — get instant Vedic wisdom.</div>
-          </div>
-        </div>
-        <div class="ai-feat">
-          <div class="ai-feat-ic">📈</div>
-          <div class="ai-feat-text">
-            <div class="ai-feat-name">Progress-aware guidance</div>
-            <div class="ai-feat-desc">The more you practice, the smarter your AI guide becomes — adapting difficulty as you grow.</div>
-          </div>
+    <div class="preview-frame">
+      <div class="preview-pane active" data-pane="0">
+        <div class="mini-asana-row">
+          <div class="mini-slot"><div class="nm">Mountain</div><div class="sk">Tadasana</div></div>
+          <div class="mini-slot"><div class="nm">Tree</div><div class="sk">Vrikshasana</div></div>
+          <div class="mini-slot"><div class="nm">Warrior II</div><div class="sk">Virabhadrasana</div></div>
+          <div class="mini-slot"><div class="nm">Child's</div><div class="sk">Balasana</div></div>
         </div>
       </div>
-    </div>
-
-    <!-- AI chat mockup -->
-    <div class="ai-mockup">
-      <div class="ai-mock-header">
-        <div class="ai-mock-dot"></div>
-        <div>
-          <div class="ai-mock-title">VedicAI Guide</div>
-          <div class="ai-mock-sub">Powered by ancient wisdom + modern AI</div>
+      <div class="preview-pane" data-pane="1">
+        <div class="mini-chat">
+          <div class="mchat-msg mchat-usr">I feel stressed today. What should I practice?</div>
+          <div class="mchat-msg mchat-ai">Try <b>Balasana</b> to ground yourself, then a few rounds of Anulom Vilom breathing. 🙏</div>
         </div>
       </div>
-      <div class="ai-chat">
-        <div class="msg msg-usr">
-          <div class="msg-av av-usr">S</div>
-          <div class="msg-bubble bubble-usr">I feel stressed today. What should I practice?</div>
+      <div class="preview-pane" data-pane="2">
+        <div class="mini-stats">
+          <div class="mstat"><b>14</b><span>Day streak</span></div>
+          <div class="mstat"><b>28</b><span>Sessions</span></div>
+          <div class="mstat"><b>7h</b><span>Practice</span></div>
         </div>
-        <div class="msg msg-ai">
-          <div class="msg-av av-ai">🌿</div>
-          <div class="msg-bubble bubble-ai">
-            Based on your energy today, I suggest starting with <span class="g">Balasana (Child's Pose)</span> to ground yourself, followed by <span class="g">Anulom Vilom</span> — alternate nostril breathing. It calms the nervous system within minutes. 🙏
-          </div>
-        </div>
-        <div class="msg msg-usr">
-          <div class="msg-av av-usr">S</div>
-          <div class="msg-bubble bubble-usr">How long should I hold Balasana?</div>
-        </div>
-        <div class="msg msg-ai">
-          <div class="msg-av av-ai">🌿</div>
-          <div class="msg-bubble bubble-ai">
-            Hold for <span class="g">1–3 minutes</span>, breathing deeply into your lower back. The Vedas say — <em>"Sthira sukham asanam"</em> — posture should be steady and comfortable, never forced. ✨
-          </div>
-        </div>
-      </div>
-      <div class="ai-input-row">
-        <span class="ai-input-ph">Ask your Vedic AI guide…</span>
-        <span class="ai-send">↑</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── PROGRESS ── -->
-<section class="section-alt" id="progress">
-  <div class="sec-hd">
-    <div class="eyebrow">Progress Tracking</div>
-    <h2 class="sec-title">Watch yourself grow — day by day</h2>
-    <p class="sec-sub">Every session logged, every streak celebrated. Your progress calendar fills up like a garden — one day at a time.</p>
-  </div>
-
-  <div class="prog-grid">
-    <div class="prog-features">
-      <div class="pf">
-        <div class="pf-ic">🔥</div>
-        <div class="pf-body">
-          <div class="pf-title">Daily streak tracking</div>
-          <div class="pf-desc">Miss a day and your streak resets — that's the motivation. Build the longest unbroken chain of practice days.</div>
-        </div>
-      </div>
-      <div class="pf">
-        <div class="pf-ic">📅</div>
-        <div class="pf-body">
-          <div class="pf-title">Interactive progress calendar</div>
-          <div class="pf-desc">See every day you practiced highlighted green. Watch months fill up and feel proud of your consistency.</div>
-        </div>
-      </div>
-      <div class="pf">
-        <div class="pf-ic">⏱</div>
-        <div class="pf-body">
-          <div class="pf-title">Session time & personal bests</div>
-          <div class="pf-desc">Track total practice time, best session hold times, and weekly minutes. Crush your own records.</div>
-        </div>
-      </div>
-      <div class="pf">
-        <div class="pf-ic">📊</div>
-        <div class="pf-body">
-          <div class="pf-title">Weekly insights & trends</div>
-          <div class="pf-desc">Visual bar charts show your weekly effort. See which days you practice most and build better habits.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- progress mockup -->
-    <div class="prog-mockup">
-      <div class="pm-header">
-        <div class="pm-title">Your dashboard — June 2025</div>
-        <div class="pm-badge">🔥 14 day streak</div>
-      </div>
-
-      <div class="pm-stats">
-        <div class="pm-stat"><div class="pm-stat-n">14</div><div class="pm-stat-l">Day streak</div></div>
-        <div class="pm-stat"><div class="pm-stat-n">28</div><div class="pm-stat-l">Sessions</div></div>
-        <div class="pm-stat"><div class="pm-stat-n">7h</div><div class="pm-stat-l">Practice</div></div>
-        <div class="pm-stat"><div class="pm-stat-n">21</div><div class="pm-stat-l">Best streak</div></div>
-      </div>
-
-      <div class="cal">
-        <div class="cd hdr">M</div><div class="cd hdr">T</div><div class="cd hdr">W</div>
-        <div class="cd hdr">T</div><div class="cd hdr">F</div><div class="cd hdr">S</div><div class="cd hdr">S</div>
-        <div class="cd done">2</div><div class="cd done">3</div><div class="cd done">4</div>
-        <div class="cd done">5</div><div class="cd done">6</div><div class="cd done">7</div><div class="cd done">8</div>
-        <div class="cd done">9</div><div class="cd done">10</div><div class="cd done">11</div>
-        <div class="cd done">12</div><div class="cd done">13</div><div class="cd done">14</div><div class="cd done">15</div>
-        <div class="cd today">16</div><div class="cd">17</div><div class="cd">18</div>
-        <div class="cd">19</div><div class="cd">20</div><div class="cd">21</div><div class="cd">22</div>
-        <div class="cd">23</div><div class="cd">24</div><div class="cd">25</div>
-        <div class="cd">26</div><div class="cd">27</div><div class="cd">28</div><div class="cd">29</div>
-      </div>
-
-      <div>
-        <div style="font-size:.72rem; color:var(--muted); margin-bottom:.6rem;">Weekly sessions</div>
-        <div class="bar-chart">
-          <div class="bar-col"><div class="bar" style="height:35%"></div><div class="bar-lbl">M</div></div>
-          <div class="bar-col"><div class="bar hi" style="height:80%"></div><div class="bar-lbl">T</div></div>
-          <div class="bar-col"><div class="bar" style="height:50%"></div><div class="bar-lbl">W</div></div>
-          <div class="bar-col"><div class="bar hi" style="height:90%"></div><div class="bar-lbl">T</div></div>
-          <div class="bar-col"><div class="bar" style="height:40%"></div><div class="bar-lbl">F</div></div>
-          <div class="bar-col"><div class="bar hi" style="height:70%"></div><div class="bar-lbl">S</div></div>
-          <div class="bar-col"><div class="bar hi" style="height:100%"></div><div class="bar-lbl">S</div></div>
+        <div class="mini-bars">
+          <div class="mbar-col"><div class="mbar" style="height:35%"></div></div>
+          <div class="mbar-col"><div class="mbar hi" style="height:80%"></div></div>
+          <div class="mbar-col"><div class="mbar" style="height:50%"></div></div>
+          <div class="mbar-col"><div class="mbar hi" style="height:90%"></div></div>
+          <div class="mbar-col"><div class="mbar" style="height:40%"></div></div>
+          <div class="mbar-col"><div class="mbar hi" style="height:70%"></div></div>
+          <div class="mbar-col"><div class="mbar hi" style="height:100%"></div></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── OTHER FEATURES ── -->
+<!-- ── SIMPLE FEATURE STRIP ── -->
 <section class="section" id="features">
   <div class="sec-hd">
     <div class="eyebrow">Everything included</div>
-    <h2 class="sec-title">All you need to thrive</h2>
-    <p class="sec-sub">Every feature built with one intention — to make your Vedic practice effortless and joyful.</p>
+    <h2 class="sec-title">Built to stay out of your way</h2>
   </div>
-  <div class="feat-grid">
-    <div class="fcard"><div class="fcard-ic">🌅</div><div class="fcard-title">Morning rituals</div><div class="fcard-desc">Start each day with an intentional Vedic flow curated for your energy level and dosha.</div></div>
-    <div class="fcard"><div class="fcard-ic">🍃</div><div class="fcard-title">Ayurvedic guidance</div><div class="fcard-desc">Personalised tips rooted in your dosha — Vata, Pitta, or Kapha — for food, sleep and practice.</div></div>
-    <div class="fcard"><div class="fcard-ic">🌙</div><div class="fcard-title">Evening wind-down</div><div class="fcard-desc">Calming Yoga Nidra and pranayama flows to close your day with complete stillness.</div></div>
-    <div class="fcard"><div class="fcard-ic">📖</div><div class="fcard-title">Vedic readings</div><div class="fcard-desc">Daily excerpts from the Upanishads, Bhagavad Gita, and Yoga Sutras of Patanjali.</div></div>
-    <div class="fcard"><div class="fcard-ic">🏅</div><div class="fcard-title">Milestones & badges</div><div class="fcard-desc">Earn badges for 7, 21, and 108-day streaks. Celebrate your growth with Vedic milestone names.</div></div>
-    <div class="fcard"><div class="fcard-ic">🔒</div><div class="fcard-title">Private & secure</div><div class="fcard-desc">Your practice is yours. No ads, no data selling. Just you and your Yog.</div></div>
+  <div class="feat-strip">
+    <div class="fitem"><div class="ic">🌅</div><div class="t">Morning rituals</div><div class="d">A short flow to start your day.</div></div>
+    <div class="fitem"><div class="ic">🤖</div><div class="t">AI guidance</div><div class="d">Suggestions that adapt to you.</div></div>
+    <div class="fitem"><div class="ic">📅</div><div class="t">Streak tracking</div><div class="d">See your consistency grow.</div></div>
+    <div class="fitem"><div class="ic">🔒</div><div class="t">Private by default</div><div class="d">No ads, no data selling.</div></div>
   </div>
 </section>
 
 <!-- ── CTA ── -->
 <section class="cta-section">
-  <h2 class="cta-h2">Begin your <span class="g">Vedic journey</span><br>today — it's free</h2>
-  <p class="cta-sub">Thousands of practitioners have made VedicHuman part of their morning ritual. Join them — no credit card, no pressure.</p>
-  <div class="cta-btns">
-    <a href="{{ url_for('signup_page') }}" class="btn btn-gr btn-lg">Create free account</a>
-    <a href="{{ url_for('login_page') }}" class="btn-ghost">Already a member? Login</a>
-  </div>
-  <div class="cta-note">Free forever for core features · No credit card needed</div>
+  <h2>Begin your <em>Vedic journey</em> today — it's free</h2>
+  <p>No credit card. No pressure. Just you and your Yog.</p>
+  <a href="{{ url_for('signup_page') }}" class="btn btn-gr btn-lg">Create free account</a>
+  <div class="cta-note">Free forever for core features</div>
 </section>
 
 <!-- ── FOOTER ── -->
 <footer>
-  <div class="foot-logo">🌿 VedicHuman <span style="font-size:.65rem; color:var(--glt); margin-left:.3rem;">Yog at Ease</span></div>
+  <div class="foot-logo">🌿 VedicHuman <span style="color:var(--green-dk);font-size:.65rem;">Yog at Ease</span></div>
   <ul class="foot-links">
     <li><a href="#">Privacy</a></li>
     <li><a href="#">Terms</a></li>
-    <li><a href="#">About</a></li>
     <li><a href="#">Contact</a></li>
   </ul>
   <div class="foot-copy">© 2025 VedicHuman. Built with 🙏 and Python.</div>
 </footer>
 
-</div><!-- /wrap -->
-
 <script>
-  // ── THOUGHT OF THE DAY ──
-  const thoughts = [
-    "Yogaḥ karmasu kauśalam — Excellence in action is Yoga. (Bhagavad Gita 2.50)",
-    "The goal of life is to make your heartbeat match the beat of the universe. — Joseph Campbell on Vedic thought",
-    "Sthira sukham asanam — Posture should be steady and comfortable. (Yoga Sutras 2.46)",
-    "When you inhale, you are taking the strength from God. When you exhale, it represents the service you are giving. — B.K.S. Iyengar",
-    "Chittavritti nirodhah — Yoga is the cessation of the fluctuations of the mind. (Yoga Sutras 1.2)",
-    "The body is your temple. Keep it pure and clean for the soul to reside in. — B.K.S. Iyengar",
-    "Ahimsa paramo dharma — Non-violence is the highest virtue. (Mahabharata)",
-    "Arise, awake, and stop not till the goal is reached. — Swami Vivekananda",
-    "In the lotus of your heart, the divine resides. Be still and know. — Upanishads",
-    "Tamasoma jyotirgamaya — Lead me from darkness to light. (Brihadaranyaka Upanishad)",
-    "A calm mind is the ultimate weapon against your challenges. — Bhagavad Gita",
-    "The quieter you become, the more you are able to hear. — Rumi, echoing Vedic silence",
-    "Tat tvam asi — Thou art that. You are the universe itself. (Chandogya Upanishad)",
-    "Let your practice be a celebration of life, not a punishment. — Vedic tradition",
-    "Breathe in peace, breathe out gratitude. That is Pranayama. — Ancient Vedic teaching"
+  /* ── DYNAMIC IMAGE GALLERY ──
+     Add your own uploaded image paths/URLs here (e.g. "/static/uploads/photo1.jpg").
+     Each gallery tile cycles through this list independently, offset in time,
+     so the whole gallery feels alive without ever changing all at once. */
+  const galleryImages = [
+    "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80",
+    "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&q=80",
+    "https://images.unsplash.com/photo-1552196563-55cd4e45efb3?w=600&q=80",
+    "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&q=80",
+    "https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=600&q=80",
+    "https://images.unsplash.com/photo-1573590330099-d6c7355ec595?w=600&q=80"
   ];
 
-  function setThought() {
-    const el = document.getElementById('totd-text');
-    const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(),0,0)) / 86400000);
-    el.style.opacity = '0';
-    setTimeout(() => {
-      el.textContent = thoughts[dayOfYear % thoughts.length];
-      el.style.opacity = '1';
-    }, 400);
+  document.querySelectorAll(".gallery-tile").forEach((tile, i) => {
+    // build two <img> layers per tile for cross-fade
+    const imgA = document.createElement("img");
+    const imgB = document.createElement("img");
+    tile.prepend(imgB);
+    tile.prepend(imgA);
+    let idx = i % galleryImages.length;
+    let showingA = true;
+    imgA.src = galleryImages[idx];
+    imgA.classList.add("active");
+
+    setInterval(() => {
+      idx = (idx + 1) % galleryImages.length;
+      const next = showingA ? imgB : imgA;
+      const curr = showingA ? imgA : imgB;
+      next.src = galleryImages[idx];
+      next.classList.add("active");
+      curr.classList.remove("active");
+      showingA = !showingA;
+    }, 4000 + i * 900); // slight stagger per tile
+  });
+
+  /* ── APP PREVIEW TABS (click + auto-rotate) ── */
+  const tabs = document.querySelectorAll(".ptab");
+  const panes = document.querySelectorAll(".preview-pane");
+  let previewIdx = 0;
+
+  function showPreview(i) {
+    tabs.forEach(t => t.classList.toggle("active", t.dataset.tab == i));
+    panes.forEach(p => p.classList.toggle("active", p.dataset.pane == i));
+    previewIdx = i;
   }
-  setThought();
+  tabs.forEach(t => t.addEventListener("click", () => showPreview(t.dataset.tab)));
 
-  // ── POSE SELECTOR ──
-  function selectPose(el, name, skt) {
-    document.querySelectorAll('.pose-slot').forEach(s => s.classList.remove('active'));
-    el.classList.add('active');
-    document.getElementById('pose-display').innerHTML =
-      '🧘 <strong style="color:#fff">' + name + '</strong> — ' + skt;
-  }
-
-  // ── AUTO-ROTATING POSE CAROUSEL ──
-  const poseData = [
-    { name: 'Mountain Pose',  skt: 'Tadasana' },
-    { name: 'Tree Pose',      skt: 'Vrikshasana' },
-    { name: 'Warrior II',     skt: 'Virabhadrasana' },
-    { name: "Child's Pose",   skt: 'Balasana' }
-  ];
-  let currentPose = 0;
-  function rotatePose() {
-    currentPose = (currentPose + 1) % poseData.length;
-    const slots = document.querySelectorAll('.pose-slot');
-    slots.forEach((s, i) => {
-      s.classList.toggle('active', i === currentPose);
-    });
-    const p = poseData[currentPose];
-    const display = document.getElementById('pose-display');
-    if (display) {
-      display.style.opacity = '0';
-      setTimeout(() => {
-        display.innerHTML = '🧘 <strong style="color:#fff">' + p.name + '</strong> — ' + p.skt;
-        display.style.opacity = '1';
-      }, 250);
-    }
-  }
-  // rotate every 2.8 seconds
-  setInterval(rotatePose, 2800);
-  // smooth transition on pose-display
-  const pd = document.getElementById('pose-display');
-  if (pd) pd.style.transition = 'opacity 0.25s';
-
-  // ── FLOATING LEAF PARTICLES ──
-  (function() {
-    const canvas = document.getElementById('leaf-canvas');
-    const ctx    = canvas.getContext('2d');
-    let W, H;
-
-    function resize() {
-      W = canvas.width  = window.innerWidth;
-      H = canvas.height = window.innerHeight;
-    }
-    resize();
-    window.addEventListener('resize', resize);
-
-    // leaf SVG paths drawn via canvas bezier curves
-    // each leaf: position, size, rotation, speed, opacity, sway
-    const LEAF_COUNT = 28;
-    const leaves = [];
-
-    // colour palette — soft greens & blurred white
-    const COLOURS = [
-      'rgba(74,222,128,',
-      'rgba(34,197,94,',
-      'rgba(22,163,74,',
-      'rgba(187,247,208,',
-      'rgba(255,255,255,'
-    ];
-
-    function randomLeaf() {
-      return {
-        x:       Math.random() * W,
-        y:       Math.random() * H * 1.2,       // start anywhere incl below screen
-        size:    6 + Math.random() * 18,         // 6–24px
-        rot:     Math.random() * Math.PI * 2,
-        rotSpd:  (Math.random() - 0.5) * 0.012, // slow spin
-        vy:      -(0.18 + Math.random() * 0.45), // float UP slowly
-        vx:      (Math.random() - 0.5) * 0.25,  // gentle horizontal drift
-        swayAmp: 0.3 + Math.random() * 0.7,
-        swaySpd: 0.008 + Math.random() * 0.012,
-        swayOff: Math.random() * Math.PI * 2,
-        alpha:   0.04 + Math.random() * 0.13,   // very faint — blurry feel
-        colour:  COLOURS[Math.floor(Math.random() * COLOURS.length)],
-        blur:    Math.random() > 0.5,            // some leaves get extra blur
-        t:       0,
-        type:    Math.floor(Math.random() * 3)   // 0=simple leaf, 1=oval, 2=tiny circle
-      };
-    }
-
-    for (let i = 0; i < LEAF_COUNT; i++) {
-      const l = randomLeaf();
-      l.y = Math.random() * H; // spread initial Y across full screen
-      leaves.push(l);
-    }
-
-    function drawLeaf(l) {
-      ctx.save();
-      ctx.translate(l.x, l.y);
-      ctx.rotate(l.rot);
-      if (l.blur) ctx.filter = 'blur(3px)';
-
-      ctx.fillStyle   = l.colour + l.alpha + ')';
-      ctx.strokeStyle = l.colour + (l.alpha * 0.6) + ')';
-      ctx.lineWidth   = 0.5;
-
-      if (l.type === 0) {
-        // simple leaf shape
-        const s = l.size;
-        ctx.beginPath();
-        ctx.moveTo(0, -s);
-        ctx.bezierCurveTo( s * 0.8, -s * 0.4,  s * 0.8,  s * 0.4, 0,  s);
-        ctx.bezierCurveTo(-s * 0.8,  s * 0.4, -s * 0.8, -s * 0.4, 0, -s);
-        ctx.fill();
-        ctx.stroke();
-        // midrib
-        ctx.beginPath();
-        ctx.moveTo(0, -s); ctx.lineTo(0, s);
-        ctx.strokeStyle = l.colour + (l.alpha * 0.4) + ')';
-        ctx.stroke();
-      } else if (l.type === 1) {
-        // elongated oval / petal
-        const s = l.size;
-        ctx.beginPath();
-        ctx.ellipse(0, 0, s * 0.35, s, 0, 0, Math.PI * 2);
-        ctx.fill();
-      } else {
-        // tiny blurred circle (light particle)
-        ctx.beginPath();
-        ctx.arc(0, 0, l.size * 0.4, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      ctx.filter = 'none';
-      ctx.restore();
-    }
-
-    let frame = 0;
-    function animate() {
-      ctx.clearRect(0, 0, W, H);
-      frame++;
-
-      for (const l of leaves) {
-        l.t++;
-        l.rot += l.rotSpd;
-        // sway side to side
-        l.x  += l.vx + Math.sin(l.t * l.swaySpd + l.swayOff) * l.swayAmp;
-        l.y  += l.vy;
-
-        // when leaf floats off top, reset to bottom
-        if (l.y < -l.size * 2) {
-          const fresh = randomLeaf();
-          fresh.y = H + l.size * 2;
-          Object.assign(l, fresh);
-        }
-
-        drawLeaf(l);
-      }
-
-      requestAnimationFrame(animate);
-    }
-    animate();
-  })();
-
+  setInterval(() => {
+    showPreview((previewIdx + 1) % tabs.length);
+  }, 5000);
 </script>
 </body>
 </html>
